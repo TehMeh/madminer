@@ -709,9 +709,9 @@ def _parse_xml_event(event, sampling_benchmark):
     for elements in particle_lines:
         if len(elements) < 10:
             continue
-        status = int(elements[1])
         if elements[0] == '#aMCatNLO':
             elements=elements[1:]
+        status = int(elements[1])
         if status == 1:
             pdgid = int(elements[0])
             px = float(elements[6])
