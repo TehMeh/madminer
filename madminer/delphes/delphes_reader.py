@@ -699,8 +699,13 @@ class DelphesReader:
             sample_syst_names = []
         for key in sample_syst_names:
             systematics_used[key] = self.systematics[key]
+       
+        logger.debug(systematics_used)
+        logger.debug(lhe_file_for_weights)
+        logger.debug(lhe_file)
 
         if len(systematics_used) > 0 and lhe_file_for_weights is None:
+            logger.debug("NOT IMPLEMENTED YET")
             raise NotImplementedError(
                 "Systematic uncertainties are currently only supported when the weights"
                 " are extracted from the LHE file (instead of the HepMC / Delphes ROOT"
@@ -708,11 +713,14 @@ class DelphesReader:
             )
 
         # Read systematics setup from LHE file
-        logger.debug("Extracting nuisance parameter definitions from LHE file")
-        systematics_dict = extract_nuisance_parameters_from_lhe_file(lhe_file, systematics_used)
-        logger.debug("systematics_dict: %s", systematics_dict)
-        # systematics_dict has structure
-        # {systematics_name : {nuisance_parameter_name : ((benchmark0, weight0), (benchmark1, weight1), processing)}}
+        if lhe_file is not None:
+            logger.debug("Extracting nuisance parameter definitions from LHE file")
+            systematics_dict = extract_nuisance_parameters_from_lhe_file(lhe_file, systematics_used)
+            logger.debug("systematics_dict: %s", systematics_dict)
+            # systematics_dict has structure
+            # {systematics_name : {nuisance_parameter_name : ((benchmark0, weight0), (benchmark1, weight1), processing)}}
+        else:
+            systematics_dict={}
 
         # Store nuisance parameters
         for systematics_name, nuisance_info in six.iteritems(systematics_dict):

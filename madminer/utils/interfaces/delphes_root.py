@@ -61,7 +61,11 @@ def parse_delphes_root_file(
 
             logger.debug("Found %s events, %s weights", n_events, n_weights)
 
-            weights = np.array(weights).reshape((n_events, n_weights)).T
+            weights = np.array(list(weights)).reshape((n_events, n_weights)).T # row is label, column is event
+                                                                               # list() seems to do correct type conversion;
+                                                                               # checked offline
+                                                                               # jagged array barely works...
+
         except KeyError:
             raise RuntimeError(
                 "Extracting weights from Delphes ROOT file failed. Please install inofficial patches"
@@ -228,15 +232,15 @@ def parse_delphes_root_file(
             observable_values[obs_name] = observable_values[obs_name][combined_filter]
 
         if weights is not None:
-            weights = weights[:, combined_filter]
-
+            weights = weights[:, combined_filter] # removes events
     # Wrap weights
     if weights is None:
         weights_dict = None
     else:
-        weights_dict = OrderedDict()
-        for weight_label, this_weights in zip(weight_labels, weights):
-            weights_dict[weight_label] = this_weights
+        weights_dict=OrderedDict(zip(weight_labels, weights)) # made this to be identical to lhe.py
+        #weights_dict = OrderedDict()
+        #for weight_label, this_weights in zip(weight_labels, weights):
+            #weights_dict[weight_label] = this_weights
 
     # Delete Delphes file
     if delete_delphes_sample_file:

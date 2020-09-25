@@ -1070,6 +1070,7 @@ class MadMiner:
         log_directory=None,
         temp_directory=None,
         initial_command=None,
+        use_python=''
     ):
         """
         High-level function that adds the weights required for MadMiner to an existing sample.
@@ -1179,6 +1180,7 @@ class MadMiner:
                 reweight_card_file=mg_process_directory + "/" + reweight_card_file,
                 initial_command=initial_command,
                 log_file=log_directory + "/" + log_file_run,
+                use_python=use_python
             )
             logger.info(
                 "Finished running reweighting! Please check that events were succesfully reweighted in the following "

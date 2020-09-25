@@ -554,7 +554,7 @@ def setup_mg_reweighting_with_scripts(
     return call_instruction
 
 
-def run_mg_reweighting(mg_process_directory, run_name, reweight_card_file=None, initial_command=None, log_file=None):
+def run_mg_reweighting(mg_process_directory, run_name, reweight_card_file=None, initial_command=None, log_file=None, use_python=''):
     """
     Runs MG reweighting.
 
@@ -601,7 +601,7 @@ def run_mg_reweighting(mg_process_directory, run_name, reweight_card_file=None, 
         initial_command = initial_command + "; "
 
     _ = call_command(
-        "{}{}/bin/madevent reweight {} -f".format(initial_command, mg_process_directory, run_name), log_file=log_file
+        "{}{} {}/bin/madevent reweight {} -f".format(initial_command, use_python, mg_process_directory, run_name), log_file=log_file
     )
 
 
