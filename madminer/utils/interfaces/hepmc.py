@@ -37,10 +37,8 @@ def extract_weight_order(filename, default_weight_label=None):
 
             weight_labels = []
             for term in terms[2:]:
-
-                if term.startswith("id="):
-                    term = term[3:]
-                    term = term.partition("_MERGING=")[0]
+                term = term.partition("_MERGING=")[0]         
+                if n_benchmarks > 1 and term!='Weight':
                     weight_labels.append(term)
                 else:
                     weight_labels.append(default_weight_label)
