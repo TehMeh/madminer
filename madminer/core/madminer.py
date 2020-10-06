@@ -577,6 +577,7 @@ class MadMiner:
         reweight_card_filename=None,
         include_param_card=True,
         benchmarks=None,
+        decay_info=[],
     ):
 
         """
@@ -647,6 +648,7 @@ class MadMiner:
             benchmarks=benchmarks,
             parameters=self.parameters,
             mg_process_directory=mg_process_directory,
+            decay_info=decay_info,
             reweight_card_filename=reweight_card_filename,
         )
 
@@ -669,6 +671,7 @@ class MadMiner:
         python2_override=False,
         systematics=None,
 		order='LO',
+        decay_info=[],
     ):
 
         """
@@ -777,6 +780,7 @@ class MadMiner:
             python2_override=python2_override,
             systematics=systematics,
 			order=order,
+            decay_info=decay_info,
         )
 
     def run_multiple(
@@ -798,6 +802,7 @@ class MadMiner:
         python2_override=False,
         systematics=None,
 		order='LO',
+        decay_info=[],
     ):
 
         """
@@ -979,6 +984,7 @@ class MadMiner:
                     sample_benchmark=sample_benchmark,
                     param_card_filename=mg_process_directory + "/" + param_card_file,
                     reweight_card_filename=mg_process_directory + "/" + reweight_card_file,
+                    decay_info=decay_info,
                 )
 
                 # Create run card
