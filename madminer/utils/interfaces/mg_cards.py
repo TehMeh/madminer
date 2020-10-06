@@ -115,8 +115,8 @@ def export_reweight_card(sample_benchmark, benchmarks, parameters, mg_process_di
                 parameter_value = eval(parameter_transform, variables)
 
             lines.append("  set {0} {1} {2}".format(parameter_lha_block, parameter_lha_id, parameter_value))
-            for decay in decay_info:
-                lines.append(decay)
+        for decay in decay_info:
+            lines.append("  {}".format(decay))
 
         lines.append("")
 
