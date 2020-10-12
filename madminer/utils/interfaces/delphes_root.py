@@ -530,15 +530,16 @@ def _get_particles_truth_jets(tree, pt_min, eta_max):
 def _get_particles_truth_met(tree):
     mets = tree.array("GenMissingET.MET")
     phis = tree.array("GenMissingET.Phi")
+    etas = tree.array("GenMissingET.Eta")
 
     all_particles = []
 
     for ievent in range(len(mets)):
         event_particles = []
 
-        for met, phi in zip(mets[ievent], phis[ievent]):
+        for met, phi, eta in zip(mets[ievent], phis[ievent], etas[ievent]):
             particle = MadMinerParticle()
-            particle.setptetaphim(met, 0.0, phi, 0.0)
+            particle.setptetaphim(met, eta, phi, 0.0)
             particle.set_pdgid(0)
             event_particles.append(particle)
 
@@ -550,15 +551,15 @@ def _get_particles_truth_met(tree):
 def _get_particles_met(tree):
     mets = tree.array("MissingET.MET")
     phis = tree.array("MissingET.Phi")
-
+    etas = tree.array("MissingET.Eta")
     all_particles = []
 
     for ievent in range(len(mets)):
         event_particles = []
 
-        for met, phi in zip(mets[ievent], phis[ievent]):
+        for met, phi, eta in zip(mets[ievent], phis[ievent], etas[ievent]):
             particle = MadMinerParticle()
-            particle.setptetaphim(met, 0.0, phi, 0.0)
+            particle.setptetaphim(met, eta, phi, 0.0)
             particle.set_pdgid(0)
             event_particles.append(particle)
 
